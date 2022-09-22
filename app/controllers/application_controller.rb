@@ -9,46 +9,40 @@ class ApplicationController < Sinatra::Base
     teams.to_json(include: :football_players)
   end
 
-  # #Get Team By ID
-  # get '/teams/:id' do
-  #   team = FootballTeam.find(params[:id])
-  #   team.to_json(include: :football_players)
-  # end
+  #Get Team By ID
+  get '/teams/:id' do
+    team = FootballTeam.find(params[:id])
+    team.to_json(include: :football_players)
+  end
 
+  #Get Players
+  get '/players' do
+    player = FootballPlayer.all.order(:id)
+    player.to_json
+  end
 
-  #Add New Team
-  post '/teams' do
-    team = FootballTeam.create(team_name: params[team_name])
-    team.to_json
+   #Get Player By ID
+  get '/player/:id' do
+    player = FootballPlayer.find(params[:id])
+    player.to_json
   end
 
   #Add New Player from Form
-  post '/players' do
-    team = FootballTeam.find(params[:team_name])
+  post '/player/add' do
     player = FootballPlayer.create(
       first_name: params[:first_name],
       last_name: params[:last_name],
       position: params[:position],
       university: params[:university],
       years_of_experience: params[:years_of_experience],
-      #how to pass in team.id??
-      football_team_id: team.id
+      football_team_id: params[:football_team_id]
     )
     player.to_json
   end
 
-  #Update Team
-  patch '/teams/:id' do
-    team = FootballTeam.find(params[:id])
-    team.update(
-      team_name: params[:team_name]
-    )
-    team.to_json
-  end
 
-    #Update Player from Form
-    post '/players/:id' do
-      team = FootballTeam.find(params[:team_name])
+    #Update Player
+    patch '/player/:id' do
       player = FootballPlayer.find(params[:id])
       player.update(
         first_name: params[:first_name],
@@ -56,14 +50,13 @@ class ApplicationController < Sinatra::Base
         position: params[:position],
         university: params[:university],
         years_of_experience: params[:years_of_experience],
-        #how to pass in team.id??
-        football_team_id: team.id
+        football_team_id: params[:football_team_id]
       )
       player.to_json
     end
 
     #Delete Player
-    delete '/players/:id' do
+    delete '/player/:id' do
       player = FootballPlayer.find(params[:id])
       player.destroy
       player.to_json
