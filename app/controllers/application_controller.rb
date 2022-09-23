@@ -40,26 +40,40 @@ class ApplicationController < Sinatra::Base
     player.to_json
   end
 
+  #Add New Team
+  post '/team/add' do
+    team = FootballTeam.create(
+      team_name: params[:team_name]
+    )
+    team.to_json
+  end
 
-    #Update Player
-    patch '/player/:id' do
-      player = FootballPlayer.find(params[:id])
-      player.update(
-        first_name: params[:first_name],
-        last_name: params[:last_name],
-        position: params[:position],
-        university: params[:university],
-        years_of_experience: params[:years_of_experience],
-        football_team_id: params[:football_team_id]
-      )
-      player.to_json
-    end
+  #Update Player
+  patch '/player/:id' do
+    player = FootballPlayer.find(params[:id])
+    player.update(
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      position: params[:position],
+      university: params[:university],
+      years_of_experience: params[:years_of_experience],
+      football_team_id: params[:football_team_id]
+    )
+    player.to_json
+  end
 
-    #Delete Player
-    delete '/player/:id' do
-      player = FootballPlayer.find(params[:id])
-      player.destroy
-      player.to_json
-    end
+  #Delete Player
+  delete '/player/:id' do
+    player = FootballPlayer.find(params[:id])
+    player.destroy
+    player.to_json
+  end
+
+  #Delete Team
+  delete '/team/:id' do
+    team = FootballTeam.find(params[:id])
+    team.destroy
+    team.to_json
+  end
 
 end
