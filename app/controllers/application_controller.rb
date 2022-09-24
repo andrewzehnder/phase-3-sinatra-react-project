@@ -22,13 +22,13 @@ class ApplicationController < Sinatra::Base
   end
 
    #Get Player By ID
-  get '/player/:id' do
+  get '/teams/:football_team_id/players/:id' do
     player = FootballPlayer.find(params[:id])
     player.to_json
   end
 
   #Add New Player from Form
-  post '/player/add' do
+  post '/players/add' do
     player = FootballPlayer.create(
       first_name: params[:first_name],
       last_name: params[:last_name],
@@ -41,15 +41,16 @@ class ApplicationController < Sinatra::Base
   end
 
   #Add New Team
-  post '/team/add' do
+  post '/teams/add' do
     team = FootballTeam.create(
       team_name: params[:team_name]
     )
-    team.to_json
+    teams = FootballTeam.all.order(:id)
+    teams.to_json(include: :football_players)
   end
 
   #Update Player
-  patch '/player/:id' do
+  patch '/teams/:football_team_id/players/:id' do
     player = FootballPlayer.find(params[:id])
     player.update(
       first_name: params[:first_name],
@@ -59,21 +60,24 @@ class ApplicationController < Sinatra::Base
       years_of_experience: params[:years_of_experience],
       football_team_id: params[:football_team_id]
     )
-    player.to_json
+    teams = FootballTeam.all.order(:id)
+    teams.to_json(include: :football_players)
   end
 
-  #Delete Player
+  #Delete Player - should this have the same url as the others?
   delete '/player/:id' do
     player = FootballPlayer.find(params[:id])
     player.destroy
-    player.to_json
+    teams = FootballTeam.all.order(:id)
+    teams.to_json(include: :football_players)
   end
 
   #Delete Team
   delete '/team/:id' do
     team = FootballTeam.find(params[:id])
     team.destroy
-    team.to_json
+    teams = FootballTeam.all.order(:id)
+    teams.to_json(include: :football_players)
   end
 
 end
