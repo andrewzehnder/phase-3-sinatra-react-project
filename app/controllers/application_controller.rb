@@ -64,7 +64,7 @@ class ApplicationController < Sinatra::Base
     teams.to_json(include: :football_players)
   end
 
-  #Delete Player - should this have the same url as the others?
+  #Delete Player
   delete '/player/:id' do
     player = FootballPlayer.find(params[:id])
     player.destroy
