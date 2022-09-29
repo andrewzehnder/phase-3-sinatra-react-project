@@ -47,7 +47,7 @@ Use good OO design patterns. You should have separate classes for each of your m
 N/A
 
 ## Video Walk-Through
-
+https://youtu.be/O03kWph3G4A 
 
 ## Blog on Material UI
 https://medium.com/@azehnder2/simplify-state-management-using-active-record-responses-d6c34d10b592 
