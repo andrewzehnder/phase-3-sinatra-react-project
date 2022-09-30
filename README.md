@@ -11,7 +11,7 @@ This single page application was created to display and have the ability to add 
 Front End Repo: https://github.com/andrewzehnder/phase-3-frontend-react-project
 Back End Repo: https://github.com/andrewzehnder/phase-3-sinatra-react-project
 
-To get this page running, you will need to get the front end running with "npm start" and start the backend with "bundle exec rake server" to get the server running. 
+To get this page running, you will need to get the front end running with "npm install" then "npm start" and start the backend with "bundle exec rake db:migrate", then "bundle exec rake db:seed", then "bundle exec rake server" to get the server running. 
 
 ## Usage
 
